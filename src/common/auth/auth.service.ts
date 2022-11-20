@@ -26,10 +26,14 @@ export class AuthService {
      * @returns
      */
     async login(credentials: LoginInput): Promise<AuthResponse> {
-        const user = await this._usersService.findOne({
-            email: credentials.email,
-        });
+        const user = await this._usersService.findOne(
+            {
+                email: credentials.email,
+            },
+            true,
+        );
         if (!user) throw new BadRequestException('Email no existe');
+
         const isValid = await user.validatePassword(credentials.password);
         if (!isValid)
             throw new UnauthorizedException('Credenciales incorrectas');
@@ -89,6 +93,7 @@ export class AuthService {
             id: user.id,
         };
         const jwt = this._jwtService.sign(data);
+        user.password = undefined;
         return {
             user,
             token: jwt,

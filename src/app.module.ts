@@ -3,7 +3,7 @@ import { DatabaseModuleConfig } from '@/common/database';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MulterModule } from '@nestjs/platform-express';
 import { ConfigModule } from '@common/config';
-import { GQLModule } from '@common/graphql';
+// import { GQLModule } from '@common/graphql';
 import { UsersModule } from '@modules/users';
 import { AuthModule } from './common/auth';
 /**
@@ -42,7 +42,7 @@ import { AuthModule } from './common/auth';
          *	Graphql
          * -----------------------------------------
          */
-        GQLModule,
+        // GQLModule,
         /**
          * -----------------------------------------
          *	Modules

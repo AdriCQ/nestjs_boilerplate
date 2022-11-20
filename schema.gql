@@ -30,13 +30,13 @@ input LoginInput {
 
 type Mutation {
   authLogin(credentials: LoginInput!): AuthResponse!
+  authRegister(userData: CreateUserInput!): AuthResponse!
   createUser(createUserInput: CreateUserInput!): User!
   removeUser(id: Int!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
-  refreshToken: User!
   user(id: Int!): User!
   users: [User!]!
 }
@@ -59,6 +59,5 @@ type User {
   email_verified_at: DateTime
   id: ID!
   name: String!
-  password: String!
   updated_at: DateTime
 }

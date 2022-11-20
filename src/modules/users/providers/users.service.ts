@@ -40,7 +40,15 @@ export class UsersService {
      * @param where
      * @returns
      */
-    async findOne(where: { email?: string; id?: number }) {
+    async findOne(where: { email?: string; id?: number }, advanced = false) {
+        if (advanced) {
+            return this.$repo
+                .createQueryBuilder('users')
+                .select()
+                .addSelect('users.password')
+                .where(where)
+                .getOne();
+        }
         return await this.$repo.findOne({ where });
     }
     /**
