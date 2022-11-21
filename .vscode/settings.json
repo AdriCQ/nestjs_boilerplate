@@ -5,17 +5,17 @@
     "rest-client.environmentVariables": {
         "$shared": {
             "version": "v1",
-            "prodToken": "Bearer 1|Vx5M9wPrTvT3lPDnhVEwGkiN3dDEboveyRUMsXOm",
-            "nonProdToken": "Bearer 3|JlEstLgTdK7XbIYSEc9CEX2pokVr2YpVghhbEVnd"
+            "prodToken": "Bearer token",
+            "nonProdToken": "Bearer token"
         },
         "local": {
             "version": "v2",
-            "host": "localhost:8000",
+            "host": "localhost:3000",
             "token": "{{$shared nonProdToken}}",
             "secretKey": "devSecret"
         },
         "production": {
-            "host": "api.nairda.net",
+            "host": "app.host.com",
             "token": "{{$shared prodToken}}",
             "secretKey": "prodSecret"
         }
@@ -24,7 +24,6 @@
         "User-Agent": "vscode-restclient",
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "APP-TOKEN": "1|$2y$10$UIXIRd4FjrE5qyxkjxakyeHH5UVnFktrvmrwq\/kpDhgHr0O1aeW7a"
     },
     "files.exclude": {
         "**/vue": true

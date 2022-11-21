@@ -1,4 +1,4 @@
-import { User } from '@/modules/users';
+import { User } from '@/common/users';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 

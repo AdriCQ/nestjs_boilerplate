@@ -5,10 +5,9 @@ import {
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService, User, CreateUserInput } from '@modules/users';
+import { UsersService, User, CreateUserInput } from '@common/users';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interfaces';
-import { ConfigService } from '@common/config';
 import { LoginInput } from './dto/login.input';
 import { AuthResponse } from './dto/auth.response';
 
@@ -18,7 +17,6 @@ export class AuthService {
         @Inject(forwardRef(() => UsersService))
         private _usersService: UsersService,
         private _jwtService: JwtService,
-        private configService: ConfigService,
     ) {}
     /**
      * login

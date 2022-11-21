@@ -1,6 +1,6 @@
 import { ObjectType, Field, GraphQLISODateTime, ID } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsEmail, IsString } from 'class-validator';
+import { IsArray, IsDate, IsEmail, IsString } from 'class-validator';
 import {
     BaseEntity,
     Column,
@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { hash, verify } from 'argon2';
 import { CreateUserInput } from '../dto';
+import { Role } from '@common/casl';
 /**
  * User
  */
@@ -67,6 +68,18 @@ export class User extends BaseEntity {
     @IsString()
     @Column({ type: 'varchar', length: 255, select: false })
     password: string;
+
+    /**
+     * Roles  of user
+     */
+    @Column({ type: 'json', default: `["CLIENT"]` })
+    @IsArray()
+    @ApiProperty({
+        isArray: true,
+        example:
+            '["DEVELOPER", "ADMIN", "VENDOR", "MODERATOR", "DELIVER", "CLIENT"]',
+    })
+    roles: Role[];
     /**
      * Created at
      */
@@ -103,5 +116,40 @@ export class User extends BaseEntity {
      */
     async validatePassword(password: string): Promise<boolean> {
         return await verify(this.password, password);
+    }
+    /**
+     * -----------------------------------------
+     *	Getters & Setters
+     * -----------------------------------------
+     */
+
+    /**
+     * Assigns role
+     * @param _role
+     * @returns role
+     */
+    assignRole(_role: Role): Role[] {
+        if (!this.roles.includes(_role)) this.roles.push(_role);
+        return this.roles;
+    }
+    /**
+     * Determines whether any role has
+     * @param _roles
+     * @returns true if any role
+     */
+    hasAnyRole(_roles: Role[]): boolean {
+        let has = false;
+        _roles.forEach((_r) => {
+            if (this.hasRole(_r)) has = true;
+        });
+        return has;
+    }
+    /**
+     * Determines whether role has
+     * @param _role
+     * @returns true if role
+     */
+    hasRole(_role: Role): boolean {
+        return this.roles.includes(_role);
     }
 }

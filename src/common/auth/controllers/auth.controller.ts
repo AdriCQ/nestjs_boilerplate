@@ -1,4 +1,4 @@
-import { CreateUserInput, User } from '@/modules/users';
+import { CreateUserInput, User } from '@/common/users';
 import {
     Body,
     Controller,
@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { CurrentUser } from '../guards/jwt-user.decorator';
 
 @ApiTags('Authentication')
-@Controller('/api/auth')
+@Controller('auth')
 export class AuthController {
     /**
      * Creates an instance of auth controller.

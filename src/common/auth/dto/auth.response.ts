@@ -1,4 +1,4 @@
-import { User } from '@/modules/users';
+import { User } from '@/common/users';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
