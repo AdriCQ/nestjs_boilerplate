@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { hash, verify } from 'argon2';
 import { CreateUserInput } from '../dto';
-import { Role } from '@common/casl';
+import { ROLE } from '@common/auth/roles';
 /**
  * User
  */
@@ -72,14 +72,14 @@ export class User extends BaseEntity {
     /**
      * Roles  of user
      */
-    @Column({ type: 'json', default: `["CLIENT"]` })
+    @Column({ type: 'json', default: `["USER"]` })
     @IsArray()
     @ApiProperty({
         isArray: true,
         example:
             '["DEVELOPER", "ADMIN", "VENDOR", "MODERATOR", "DELIVER", "CLIENT"]',
     })
-    roles: Role[];
+    roles: ROLE[];
     /**
      * Created at
      */
@@ -128,7 +128,7 @@ export class User extends BaseEntity {
      * @param _role
      * @returns role
      */
-    assignRole(_role: Role): Role[] {
+    assignRole(_role: ROLE): ROLE[] {
         if (!this.roles.includes(_role)) this.roles.push(_role);
         return this.roles;
     }
@@ -137,7 +137,7 @@ export class User extends BaseEntity {
      * @param _roles
      * @returns true if any role
      */
-    hasAnyRole(_roles: Role[]): boolean {
+    hasAnyRole(_roles: ROLE[]): boolean {
         let has = false;
         _roles.forEach((_r) => {
             if (this.hasRole(_r)) has = true;
@@ -149,7 +149,7 @@ export class User extends BaseEntity {
      * @param _role
      * @returns true if role
      */
-    hasRole(_role: Role): boolean {
+    hasRole(_role: ROLE): boolean {
         return this.roles.includes(_role);
     }
 }

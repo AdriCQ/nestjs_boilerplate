@@ -6,7 +6,6 @@ import { ConfigModule } from '@common/config';
 // import { GQLModule } from '@common/graphql';
 import { UsersModule } from '@common/users';
 import { AuthModule } from '@common/auth';
-import { CaslModule } from '@common/casl';
 /**
  * Modules
  */
@@ -45,7 +44,6 @@ import { CaslModule } from '@common/casl';
          */
         UsersModule,
         AuthModule,
-        CaslModule,
         // GQLModule,
     ],
 })
